@@ -1,5 +1,4 @@
-import React from 'react';
-import { Button, List, Popover, Avatar } from 'antd';
+import { Button, List, Popover, Avatar, Image } from 'antd';
 import { useSelector } from 'react-redux';
 import { UserOutlined } from '@ant-design/icons';
 
@@ -10,7 +9,7 @@ interface Props {
 }
 // 该组件用于显示用户的头像，如果用户没有登录，那么就显示登录注册按钮
 function LoginAvatar(props: Props) {
-    const { isLogin } = useSelector((state: { user: { isLogin: boolean } }) => state.user);
+    const { isLogin, userInfo } = useSelector((state: { user: { isLogin: boolean, userInfo } }) => state.user);
 
     let loginStatus = null;
     if (isLogin) {
@@ -27,7 +26,7 @@ function LoginAvatar(props: Props) {
         loginStatus = (
             <Popover content={content} trigger="hover" placement="bottom">
                 <div className={styles.avatarContainer}>
-                    <Avatar src="" size="large" icon={<UserOutlined />} />
+                    <Avatar src={<Image src={userInfo?.avatar} preview={false} />} size="large" icon={<UserOutlined />} />
                 </div>
             </Popover>
         );
