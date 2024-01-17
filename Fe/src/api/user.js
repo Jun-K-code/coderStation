@@ -27,3 +27,28 @@ export const addUser = (newUserInfo) => {
         method: 'POST',
     });
 };
+
+// 用户登录
+export const userLogin = (loginInfo) => {
+    return request({
+        url: '/api/user/login',
+        method: 'POST',
+        data: loginInfo,
+    });
+};
+
+// 根据 id 来查找用户
+export const getUserById = (id) => {
+    return request({
+        url: `/api/user/${id}`,
+        method: 'GET',
+    });
+};
+
+// 恢复登录状态
+export const getInfo = () => {
+    return request({
+        url: '/api/user/whoami',
+        method: 'GET',
+    });
+};

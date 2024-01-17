@@ -3,7 +3,7 @@ import { Modal, Radio, Form, Input, Button, Row, Col, Checkbox, message } from '
 import { useDispatch } from 'react-redux';
 
 import { initUserInfo, changeLoginStatus } from '../redux/userSlice';
-import { getCaptcha, userIsExist, addUser } from '../api/user';
+import { getCaptcha, userIsExist, addUser, userLogin, getUserById } from '../api/user';
 
 import styles from '../css/LoginForm.module.css';
 
@@ -27,8 +27,8 @@ const LoginForm = (props: Props) => {
         captcha: '', // 验证码
     });
     const [captcha, setCaptcha] = useState(null);
-    const loginFormRef = useRef();
-    const registerFormRef = useRef();
+    const loginFormRef: any = useRef(); // 登录ref
+    const registerFormRef: any = useRef(); // 注册ref
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -43,7 +43,35 @@ const LoginForm = (props: Props) => {
         captchaClickHandle();
     }
 
-    function loginHandle() {}
+    const loginHandle = async (value) => {
+        const result: any = await userLogin({ ...loginInfo, ...value });
+        if (result.data) {
+            // 验证码是正确的
+            // 接下来会有这么几种情况 （1）密码不正确 （2）账户被冻结 （3）账户正常，能够正常登录
+            const data = result.data;
+            if (!data.data) {
+                // 账号密码不正确
+                message.error('账号或密码不正确');
+                captchaClickHandle();
+            } else if (!data.data.enabled) {
+                // 账号被禁用了
+                message.warning('账号被禁用');
+                captchaClickHandle();
+            } else {
+                // 说明账号密码正确，能够登录
+                // 存储 token
+                localStorage.userToken = data.token;
+                // 将用户的信息存储到状态仓库，方便后面使用
+                const result = await getUserById(data.data._id);
+                dispatch(initUserInfo(result.data));
+                dispatch(changeLoginStatus(true));
+                handleCancel();
+            }
+        } else {
+            message.warning(result.msg);
+            captchaClickHandle();
+        }
+    };
 
     const handleCancel = () => {
         // 清空上一次的内容
@@ -58,11 +86,13 @@ const LoginForm = (props: Props) => {
             captcha: '',
             remember: false,
         });
+        loginFormRef.current && loginFormRef.current.resetFields();
+        registerFormRef.current && registerFormRef.current.resetFields();
         props.closeModal();
     };
 
-    const registerHandle = async () => {
-        const result: any = await addUser(registerInfo);
+    const registerHandle = async (value) => {
+        const result: any = await addUser({ ...registerInfo, ...value });
         if (result.data) {
             message.success('用户注册成功，默认密码为 123456');
             // 还需要将用户的信息存储到数据仓库里面
