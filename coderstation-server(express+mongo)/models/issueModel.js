@@ -16,7 +16,7 @@ const issueSchema = new mongoose.Schema(
             ref: 'userModel', // 关联的模型
         }, //	用户 id
         nickname: {
-            type: String,
+            type: mongoose.Schema.Types.ObjectId,
             ref: 'userModel', // 关联的模型
         }, // 昵称
         typeId: {
