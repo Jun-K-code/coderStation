@@ -23,6 +23,8 @@ const IssueItem = (props) => {
         }
 
         // 发送请求获取用户的信息
+        // TODO: 这个接口会循环请求多次，有点不合理，有时间再更改这个接口
+        // 应该整合到一个列表接口即可，毕竟只是获取每一个评论的用户名而已
         async function fetchUserData() {
             const { data } = await getUserById(props.issueInfo.userId);
             setUserInfo(data);

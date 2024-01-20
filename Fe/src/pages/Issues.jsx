@@ -1,12 +1,16 @@
 import React, {useState, useEffect, useMemo} from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 
 import PageHeader from '../components/PageHeader';
 import IssueItem from "../components/IssueItem";
 import { getIssueByPage } from "../api/issue";
+import { getTypeList } from '../redux/typeSlice.js';
 
 import styles from '../css/Issue.module.css'
 
 const Issues = () => {
+    const dispatch = useDispatch();
+    const { typeList } = useSelector((state) => state.type);
     const [issueInfo, setIssueInfo] = useState([]); // 用于存储获取到的状态列表
     // 分页信息
     const [pageInfo, setPageInfo] = useState({
@@ -14,6 +18,13 @@ const Issues = () => {
         pageSize: 15, // 每一页显示 15 条数据
         total: 0, // 数据的总条数
     });
+
+    useEffect(() => {
+        if (!typeList.length) {
+            // 派发 action 来发送请求，获取到数据填充到状态仓库
+            dispatch(getTypeList());
+        }
+    }, []);
 
     useEffect(() => {
         async function fetchData() {
@@ -34,7 +45,7 @@ const Issues = () => {
     }, [pageInfo.current, pageInfo.pageSize]);
 
     const issueList = useMemo(() => {
-        return issueInfo?.map((item, i) => <IssueItem key={i} issueInfo={issueInfo[i]} />)
+        return issueInfo?.map((item, i) => <IssueItem key={i} issueInfo={issueInfo[i]} typeList={typeList} />)
     }, [issueInfo])
 
     return (
