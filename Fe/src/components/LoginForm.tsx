@@ -343,7 +343,7 @@ const LoginForm = (props: Props) => {
     }
 
     return (
-        <Modal title="注册/登录" open={props.isShow} onOk={handleOk} onCancel={props.closeModal}>
+        <Modal title="注册/登录" open={props.isShow} onOk={handleOk} onCancel={props.closeModal} footer={null}>
             <Radio.Group
                 value={value}
                 onChange={onChange}
