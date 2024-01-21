@@ -1,12 +1,16 @@
-import React, {useState, useEffect, useMemo} from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
+import { Pagination } from 'antd';
 
 import PageHeader from '../components/PageHeader';
-import IssueItem from "../components/IssueItem";
-import { getIssueByPage } from "../api/issue";
+import IssueItem from '../components/IssueItem';
+import AddIssueBtn from '../components/AddIssueBtn';
+import Recommend from "../components/Recommend";
+import ScoreRank from '../components/ScoreRank';
+import { getIssueByPage } from '../api/issue';
 import { getTypeList } from '../redux/typeSlice.js';
 
-import styles from '../css/Issue.module.css'
+import styles from '../css/Issue.module.css';
 
 const Issues = () => {
     const dispatch = useDispatch();
@@ -45,8 +49,18 @@ const Issues = () => {
     }, [pageInfo.current, pageInfo.pageSize]);
 
     const issueList = useMemo(() => {
-        return issueInfo?.map((item, i) => <IssueItem key={i} issueInfo={issueInfo[i]} typeList={typeList} />)
-    }, [issueInfo])
+        return issueInfo?.map((item, i) => (
+            <IssueItem key={i} issueInfo={issueInfo[i]} typeList={typeList} />
+        ));
+    }, [issueInfo]);
+
+    // 处理翻译的回调函数
+    const handlePageChange = (current, pageSize) => {
+        setPageInfo({
+            current,
+            pageSize,
+        });
+    };
 
     return (
         <div className={styles.container}>
@@ -55,9 +69,28 @@ const Issues = () => {
             {/* 下面的列表内容区域 */}
             <div className={styles.issueContainer}>
                 {/* 左边区域 */}
-                <div className={styles.leftSide}>{issueList}</div>
+                <div className={styles.leftSide}>
+                    {issueList}
+                    <div className="paginationContainer">
+                        <Pagination
+                            showQuickJumper
+                            defaultCurrent={1}
+                            {...pageInfo}
+                            onChange={handlePageChange}
+                        />
+                    </div>
+                </div>
                 {/* 右边区域 */}
-                <div className={styles.rightSide}></div>
+                <div className={styles.rightSide}>
+                    {/* 我要发问按钮 */}
+                    <AddIssueBtn />
+                    {/* 推荐内容 */}
+                    <div style={{ marginBottom: '30px' }}>
+                        <Recommend />
+                    </div>
+                    {/* 积分排名 */}
+                    <ScoreRank/>
+                </div>
             </div>
         </div>
     );
