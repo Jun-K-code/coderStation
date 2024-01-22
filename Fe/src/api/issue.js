@@ -20,3 +20,11 @@ export const addIssue = (newIssue) => {
         data: newIssue,
     });
 };
+
+// 根据 id 获取面试题的详情
+export const getIssueById = (issueId) => {
+    return request({
+        url: `/api/issue/${issueId}`,
+        method: 'GET',
+    });
+};

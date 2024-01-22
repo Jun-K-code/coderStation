@@ -1,6 +1,7 @@
 /**
  * @description 每一条问答的项目
  */
+import { useNavigate } from 'react-router-dom';
 import { Tag } from 'antd';
 
 import { formatDate } from '../utils/tools.js';
@@ -8,6 +9,7 @@ import styles from '../css/IssueItem.module.css';
 
 const colorArr = ['#108ee9', '#2db7f5', '#f50', 'green', '#87d068', 'blue', 'red', 'purple'];
 const IssueItem = (props) => {
+    const navigate = useNavigate();
     const type = props.typeList.find((item) => item._id === props.issueInfo.typeId);
 
     return (
@@ -24,7 +26,12 @@ const IssueItem = (props) => {
             </div>
             {/* 问题内容 */}
             <div className={styles.issueContainer}>
-                <div className={styles.top}>{props.issueInfo.issueTitle}</div>
+                <div
+                    className={styles.top}
+                    onClick={() => navigate(`/issues/${props.issueInfo._id}`)}
+                >
+                    {props.issueInfo.issueTitle}
+                </div>
                 <div className={styles.bottom}>
                     <div className={styles.left}>
                         <Tag color={colorArr[props.typeList.indexOf(type) % colorArr.length]}>
