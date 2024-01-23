@@ -13,7 +13,6 @@ export const getIssueByPage = (params) => {
 
 // 新增问答
 export const addIssue = (newIssue) => {
-    console.log(newIssue, 'newIssue');
     return request({
         url: '/api/issue/',
         method: 'POST',
@@ -26,5 +25,14 @@ export const getIssueById = (issueId) => {
     return request({
         url: `/api/issue/${issueId}`,
         method: 'GET',
+    });
+};
+
+// 更新问答
+export const updateIssue = (issueId, newIssueInfo) => {
+    return request({
+        url: `/api/issue/${issueId}`,
+        method: 'PATCH',
+        data: newIssueInfo,
     });
 };

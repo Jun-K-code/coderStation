@@ -54,7 +54,7 @@ const IssueDetail = (props) => {
                         </div>
                     </div>
                     {/* 左下方：评论 */}
-                    <Discuss commentType={1} targetId={issueInfo?._id} />
+                    <Discuss commentType={1} targetId={issueInfo?._id} issueInfo={issueInfo} />
                 </div>
                 {/* 右侧 */}
                 <div className={styles.rightSide}>
@@ -68,5 +68,5 @@ const IssueDetail = (props) => {
             </div>
         </div>
     );
-}
+};
 export default IssueDetail;

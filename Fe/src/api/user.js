@@ -60,3 +60,12 @@ export const getUserByPointsRank = () => {
         method: 'GET',
     });
 };
+
+// 根据 id 修改用户
+export const editUser = (userId, newUserInfo) => {
+    return request({
+        url: `/api/user/${userId}`,
+        method: 'PATCH',
+        data: newUserInfo,
+    });
+};

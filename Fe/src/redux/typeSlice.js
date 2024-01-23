@@ -3,7 +3,6 @@ import { getType } from '../api/type';
 
 export const getTypeList = createAsyncThunk('type/getTypeList', async () => {
     const response = await getType();
-    console.log('测试返回', response);
     // 填充返回的数据到状态仓库
     return response.data;
 });
@@ -32,7 +31,6 @@ export default typeSlice.reducer;
 
 // export const getTypeList = async () => {
 //     const response = await getType();
-//     console.log('测试返回', response);
 //     // 填充返回的数据到状态仓库
 //     return response.data;
 // };
