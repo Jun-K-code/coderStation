@@ -10,7 +10,7 @@ import styles from '../css/IssueItem.module.css';
 const colorArr = ['#108ee9', '#2db7f5', '#f50', 'green', '#87d068', 'blue', 'red', 'purple'];
 const IssueItem = (props) => {
     const navigate = useNavigate();
-    const type = props.typeList.find((item) => item._id === props.issueInfo.typeId);
+    const type = props.typeList?.find((item) => item._id === props.issueInfo.typeId);
 
     return (
         <div className={styles.container}>
@@ -34,7 +34,7 @@ const IssueItem = (props) => {
                 </div>
                 <div className={styles.bottom}>
                     <div className={styles.left}>
-                        <Tag color={colorArr[props.typeList.indexOf(type) % colorArr.length]}>
+                        <Tag color={colorArr[props.typeList?.indexOf(type) % colorArr.length]}>
                             {type?.typeName}
                         </Tag>
                     </div>
