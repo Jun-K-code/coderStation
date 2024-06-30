@@ -1,5 +1,5 @@
 // 引入模型
-const typeModel = require("../models/typeModel");
+const typeModel = require('../models/typeModel');
 
 /**
  * 查询所有类型

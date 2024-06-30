@@ -14,6 +14,9 @@ dependencies:
   debug:
     specifier: ^4.3.5
     version: 4.3.5
+  dotenv:
+    specifier: ^16.4.5
+    version: 16.4.5
   jsonwebtoken:
     specifier: ^9.0.2
     version: 9.0.2
@@ -989,6 +992,11 @@ packages:
     dependencies:
       is-obj: 1.0.1
     dev: true
+
+  /dotenv@16.4.5:
+    resolution: {integrity: sha512-ZmdL2rui+eB2YwhsWzjInR8LldtZHGDoQ1ugH85ppHKwpUHL7j7rN0Ti9NCnGiQbhaZ11FpR+7ao1dNsmduNUg==}
+    engines: {node: '>=12'}
+    dev: false
 
   /duplexer3@0.1.5:
     resolution: {integrity: sha512-1A8za6ws41LQgv9HrE/66jyC5yuSjQ3L/KOpFtoBilsAK2iA2wuS5rTt1OCzIvtS2V7nVmedsUU+DGRcjBmOYA==}
