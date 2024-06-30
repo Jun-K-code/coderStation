@@ -3,6 +3,8 @@
 # dependencies
 /Fe/node_modules
 /coderstation-server(express+mongo)/node_modules
+/coderstation-server(koa+mongo)/node_modules
+/coderstation-server(koa2+mongo)/node_modules
 /.pnp
 .pnp.js
 
