@@ -34,7 +34,7 @@ app.use(logger());
 app.use(require('koa-static')(__dirname + '/public'));
 
 // 配置 session
-app.keys = ['test-secretKey-1$J5P%2']; // 这是用来签名 cookie 的密钥
+app.keys = [process.env.SESSION_SECRET]; // 这是用来签名 cookie 的密钥
 app.use(session({
   key: 'koa:sess', // cookie key (默认是 koa:sess)
   maxAge: 86400000, // cookie 的过期时间
