@@ -6,12 +6,15 @@ const onerror = require('koa-onerror');
 const bodyparser = require('koa-bodyparser');
 const logger = require('koa-logger');
 const cors = require('@koa/cors');
+const session = require('koa-session');
 
-// const index = require('./routes/index');
-// const users = require('./routes/users');
+// const test1 = require('./routes/test1');
+// const test2 = require('./routes/test2');
 const adminRouter = require('./routes/admin');
 const issueRouter = require('./routes/issue');
 const typeRouter = require('./routes/type');
+const captchaRouter = require('./routes/captcha');
+const userRouter = require('./routes/user');
 
 // 默认读取项目根目录下的 .env 环境变量文件
 require('dotenv').config();
@@ -30,6 +33,17 @@ app.use(json());
 app.use(logger());
 app.use(require('koa-static')(__dirname + '/public'));
 
+// 配置 session
+app.keys = ['test-secretKey-1$J5P%2']; // 这是用来签名 cookie 的密钥
+app.use(session({
+  key: 'koa:sess', // cookie key (默认是 koa:sess)
+  maxAge: 86400000, // cookie 的过期时间
+  httpOnly: true, // 是否仅服务器可访问 cookie
+  signed: true, // 签名 cookie
+  rolling: false, // 每次响应时强制设置 session
+  renew: false, // 在 session 即将过期时刷新 session
+}, app));
+
 // app.use(
 //   views(__dirname + '/views', {
 //     extension: 'pug',
@@ -45,11 +59,13 @@ app.use(async (ctx, next) => {
 });
 
 // routes
-// app.use(index.routes(), index.allowedMethods());
-// app.use(users.routes(), users.allowedMethods());
+// app.use(test1.routes(), test1.allowedMethods());
+// app.use(test2.routes(), test2.allowedMethods());
 app.use(adminRouter.routes(), adminRouter.allowedMethods());
 app.use(issueRouter.routes(), issueRouter.allowedMethods());
 app.use(typeRouter.routes(), typeRouter.allowedMethods());
+app.use(captchaRouter.routes(), captchaRouter.allowedMethods());
+app.use(userRouter.routes(), userRouter.allowedMethods());
 
 // error-handling
 app.on('error', (err, ctx) => {
@@ -73,7 +89,7 @@ app.on('error', (err, ctx) => {
 //   })
 // );
 app.use(async (ctx, next) => {
-  console.log('测试跨域', ctx);
+  // console.log('测试跨域', ctx);
   ctx.set('Access-Control-Allow-Origin', '*'); // 允许所有域名访问
   ctx.set('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE, OPTIONS');
   ctx.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
