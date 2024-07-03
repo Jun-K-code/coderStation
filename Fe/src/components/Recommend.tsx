@@ -47,18 +47,6 @@ const Recommend = () => {
                             rel="noreferrer"
                         ></a>
                     </div>
-                    <div>
-                        <a
-                            style={{
-                                background:
-                                    'url(https://image-static.segmentfault.com/422/352/422352298-6355600c6676b) center/cover no-repeat',
-                            }}
-                            className={styles.contentStyle}
-                            href="https://segmentfault.com/reco/1640000042672710?utm_source=sf-homepage-headline"
-                            target="_blank"
-                            rel="noreferrer"
-                        ></a>
-                    </div>
                 </Carousel>
             </div>
             <RecommendItem
