@@ -3,7 +3,6 @@ import { Route, Routes, Navigate } from 'react-router-dom';
 import Issues from '../pages/Issues';
 import IssueDetail from "../pages/IssueDetail";
 import Books from '../pages/Books';
-import Interviews from '../pages/Interviews';
 import AddIssue from '../pages/AddIssue';
 import SearchPage from "../pages/SearchPage";
 
@@ -13,7 +12,6 @@ const RouteConfig = () => {
             <Route path="/issues" element={<Issues />} />
             <Route path="/issues/:id" element={<IssueDetail />} />
             <Route path="/books" element={<Books />} />
-            <Route path="/interviews" element={<Interviews />} />
             <Route path="/addIssue" element={<AddIssue />} />
             <Route path="/searchPage" element={<SearchPage />} />
             <Route path="/" element={<Navigate to='/issues' replace />} />

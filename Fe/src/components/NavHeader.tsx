@@ -47,9 +47,6 @@ export const NavHeader = (props) => {
                 <NavLink to="/books" className="navigation">
                     书籍
                 </NavLink>
-                <NavLink to="/interviews" className="navigation">
-                    面试题
-                </NavLink>
                 <a
                     className="navigation"
                     href="https://duyi.ke.qq.com/"
