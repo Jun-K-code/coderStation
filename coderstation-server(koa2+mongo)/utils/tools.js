@@ -20,6 +20,13 @@ module.exports.analysisToken = function (token) {
     token.split(" ")[1],
     md5(process.env.JWT_SECRET),
     function (err, decode) {
+      // decode = {
+      //   _id: '123a56...',
+      //   loginId: 'test1',
+      //   enabled: true,
+      //   iat: 111111,
+      //   exp: 222222
+      // }
       return decode;
     }
   );
