@@ -49,11 +49,11 @@ export const NavHeader = (props) => {
                 </NavLink>
                 <a
                     className="navigation"
-                    href="https://duyi.ke.qq.com/"
+                    href="https://juejin.cn/"
                     target="_blank"
                     rel="noreferrer"
                 >
-                    视频教程
+                    掘金
                 </a>
             </nav>
             {/* 搜索框 */}
